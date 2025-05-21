@@ -41,7 +41,7 @@ pipeline {
             steps {
                 sh """
                     kubectl set image deployment/${KUBE_DEPLOYMENT_NAME} shop-container=${DOCKER_IMAGE}:${DOCKER_TAG} -n ${KUBE_NAMESPACE} || \
-                    kubectl apply -f k8s/deployment.yaml
+                    kubectl apply -f deploy.yaml
                 """
             }
         }
