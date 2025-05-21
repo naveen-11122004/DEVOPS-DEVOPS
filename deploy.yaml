@@ -1,24 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: test
-  name: test
+  name: shop-deployment
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: test
+      app: shop
   template:
     metadata:
       labels:
-        app: test
+        app: shop
     spec:
       containers:
-      - name: test
-        image: naveen11122004/devops-devops
-        imagePullPolicy: Always
+      - name: shop-container
+        image: naveen11122004/shop:latest
         ports:
         - containerPort: 80
-          name: http
-          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-service
+spec:
+  type: NodePort
+  selector:
+    app: shop
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30081
