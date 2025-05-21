@@ -40,6 +40,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh """
+                    minikube start
                     kubectl set image deployment/${KUBE_DEPLOYMENT_NAME} shop-container=${DOCKER_IMAGE}:${DOCKER_TAG} -n ${KUBE_NAMESPACE} || \
                     kubectl apply -f deploy.yaml
                 """
